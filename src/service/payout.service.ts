@@ -1,4 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class PayoutService {}
+export class PayoutService {
+    userBalanceCreate(): any {
+        return '';
+    }
+}
