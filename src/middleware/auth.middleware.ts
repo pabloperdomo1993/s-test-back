@@ -31,6 +31,7 @@ export class LoggerMiddleware implements NestMiddleware {
 
         req.body.clientId = client.clientId;
         req.body.clientSecret = client.clientSecret;
+        req.body.id = data.idClient;
 
         next();
     }

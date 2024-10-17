@@ -16,7 +16,8 @@ export class ExchangeService {
     async quoteCreate(request: exchangeQuoteCreateI & authClientI): Promise<any>  {
         const credentials = {
             clientId: request.clientId,
-            clientSecret: request.clientSecret
+            clientSecret: request.clientSecret,
+            id: request.id
         };
 
         const data = await this.authService.authClient(credentials);

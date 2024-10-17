@@ -16,24 +16,26 @@ export class PayinService {
     async paymentCreate(request: payinPaymentCreateI & authClientI): Promise<any> {
         const credentials = {
             clientId: request.clientId,
-            clientSecret: request.clientSecret
+            clientSecret: request.clientSecret,
+            id: request.id
         };
 
         const data = await this.authService.authClient(credentials);
 
         const X_API_TYPE = this.configService.get<string>('X_API_TYPE');
         const API_URL_BASE_SUPRA = this.configService.get<string>('API_URL_BASE_SUPRA');
+        const client = await this.authService.authClientById(request.id);
 
         const body = {
             "currency": request.currency,
             "amount": request.amount,
-            "referenceId": "ABC456789",
-            "documentType": "CC",
-            "email": "user@example.com",
-            "cellPhone": "+573115268974",
-            "document": "123456789",
-            "fullName": "John Doe",
-            "description": "Supra Payment",
+            "referenceId": client.referenceId,
+            "documentType": client.documentType,
+            "email": client.email,
+            "cellPhone": client.cellPhone,
+            "document": client.document,
+            "fullName": client.fullName,
+            "description": client.description,
             "redirectUrl": request.redirectUrl,
             "quoteId": request.quoteId
         };
@@ -51,7 +53,8 @@ export class PayinService {
     async paymentById(id: string, body: authClientI): Promise<any> {
         const credentials = {
             clientId: body.clientId,
-            clientSecret: body.clientSecret
+            clientSecret: body.clientSecret,
+            id: body.id
         };
 
         const data = await this.authService.authClient(credentials);
