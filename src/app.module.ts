@@ -8,6 +8,7 @@ import { AuthModule } from './module/auth.module';
 import { HttpResourceService } from './service/http-resource.service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     PayoutModule, 
     AuthModule, 
     HttpModule,
+    DatabaseModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
