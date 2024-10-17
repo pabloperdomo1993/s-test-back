@@ -3,6 +3,7 @@ import { HttpResourceService } from './http-resource.service';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { payinPaymentCreateI } from 'src/interface/payin.payment.create.interface';
+import { authClientI } from 'src/interface/auth.client.interface';
 
 @Injectable()
 export class PayinService {
@@ -12,10 +13,10 @@ export class PayinService {
         private readonly authService: AuthService
     ) {}
     
-    async paymentCreate(request: payinPaymentCreateI): Promise<any> {
+    async paymentCreate(request: payinPaymentCreateI & authClientI): Promise<any> {
         const credentials = {
-            clientId: "c859cd16-9dee-4c7b-a230-bf2c6f055cd3",
-            clientSecret: "ClientSecret"
+            clientId: request.clientId,
+            clientSecret: request.clientSecret
         };
 
         const data = await this.authService.authClient(credentials);
@@ -47,10 +48,10 @@ export class PayinService {
         return response.data;
     }
 
-    async paymentById(id: string): Promise<any> {
+    async paymentById(id: string, body: authClientI): Promise<any> {
         const credentials = {
-            clientId: "c859cd16-9dee-4c7b-a230-bf2c6f055cd3",
-            clientSecret: "ClientSecret"
+            clientId: body.clientId,
+            clientSecret: body.clientSecret
         };
 
         const data = await this.authService.authClient(credentials);

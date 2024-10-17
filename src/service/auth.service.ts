@@ -74,6 +74,14 @@ export class AuthService {
         }
     }
 
+    async authClientById(id: number): Promise<any> {
+        const response = await this.clientRepository.findOne({
+            where: { id: id }
+        });
+
+        return response;
+    }
+
     generateToken(client: any): string {
         const payload = {
           idClient: client.id,

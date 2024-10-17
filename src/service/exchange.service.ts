@@ -3,6 +3,7 @@ import { HttpResourceService } from './http-resource.service';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { exchangeQuoteCreateI } from 'src/interface/exchange.quote.create.interface';
+import { authClientI } from 'src/interface/auth.client.interface';
 
 @Injectable()
 export class ExchangeService {
@@ -12,10 +13,10 @@ export class ExchangeService {
         private readonly authService: AuthService
     ) {}
     
-    async quoteCreate(request: exchangeQuoteCreateI): Promise<any>  {
+    async quoteCreate(request: exchangeQuoteCreateI & authClientI): Promise<any>  {
         const credentials = {
-            clientId: "c859cd16-9dee-4c7b-a230-bf2c6f055cd3",
-            clientSecret: "ClientSecret"
+            clientId: request.clientId,
+            clientSecret: request.clientSecret
         };
 
         const data = await this.authService.authClient(credentials);
