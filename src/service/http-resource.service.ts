@@ -8,4 +8,8 @@ export class HttpResourceService {
     callPost(url: string, data: any, headers: any): Promise<AxiosResponse> {
         return axios.post(url, data, { headers: headers});
     }
+
+    callGet(url: string, headers: any): Promise<AxiosResponse> {
+        return axios.get(url, { headers: headers});
+    }
 }

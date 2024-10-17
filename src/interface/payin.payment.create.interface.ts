@@ -1,5 +1,6 @@
 export interface payinPaymentCreateI {
     currency: string;
     amount: number;
-    quoteId: string
+    quoteId: string;
+    redirectUrl: string;
 }

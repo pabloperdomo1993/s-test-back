@@ -33,7 +33,7 @@ export class PayinService {
             "document": "123456789",
             "fullName": "John Doe",
             "description": "Supra Payment",
-            "redirectUrl": "https://example.com/redirect",
+            "redirectUrl": request.redirectUrl,
             "quoteId": request.quoteId
         };
 
@@ -47,7 +47,24 @@ export class PayinService {
         return response.data;
     }
 
-    paymentById(): any {
-        return '';
+    async paymentById(id: string): Promise<any> {
+        const credentials = {
+            clientId: "c859cd16-9dee-4c7b-a230-bf2c6f055cd3",
+            clientSecret: "ClientSecret"
+        };
+
+        const data = await this.authService.authClient(credentials);
+
+        const X_API_TYPE = this.configService.get<string>('X_API_TYPE');
+        const API_URL_BASE_SUPRA = this.configService.get<string>('API_URL_BASE_SUPRA');
+
+        const HEADERS = {
+            'x-api-type': X_API_TYPE,
+             Authorization: `Bearer ${data.token}`
+        };
+
+        const response = await this.httpResouceService.callGet(`${API_URL_BASE_SUPRA}/v1/payin/payment/${id}`, HEADERS);
+
+        return response.data;
     }
 }
